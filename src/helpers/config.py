@@ -8,7 +8,6 @@ class Settings(BaseSettings):
 
     FILE_ALLOWED_TYPES: list
     FILE_MAX_SIZE: int
-
     FILE_DEFAULT_CHUNK_SIZE: int
 
     MONGODB_URL: str
@@ -26,7 +25,7 @@ class Settings(BaseSettings):
     EMBEDDING_MODEL_SIZE: int = None
 
     INPUT_DEFAULT_MAX_CHARACTERS: int = None
-    INPUT_DEFAULT_MAX_TOKENS: int = None
+    GENERATION_DEFAULT_MAX_TOKENS: int = None
     GENERATION_DEFAULT_TEMPERATURE: float = None
 
     VECTOR_DB_BACKEND: str
