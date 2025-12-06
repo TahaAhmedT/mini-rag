@@ -16,6 +16,9 @@ class QdrantDBProvider(VectorDBInterface):
         self.default_vector_size = default_vector_size
         self.index_threshold = index_threshold
 
+        self.host = "localhost"
+        self.port = 6333
+
         if distance_method == DistanceMethodEnums.COSINE.value:
             self.distance_method = models.Distance.COSINE
         elif distance_method == DistanceMethodEnums.DOT.value:
@@ -23,8 +26,8 @@ class QdrantDBProvider(VectorDBInterface):
 
         self.logger = logging.getLogger('uvicorn')
 
-    async def connect(self):
-        self.client = QdrantClient(path=self.db_client)
+    async def connect(self) -> None:
+        self.client = QdrantClient(host=self.host, port=self.port)
 
     async def disconnect(self):
         self.client = None

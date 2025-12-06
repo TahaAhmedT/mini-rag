@@ -7,7 +7,7 @@ class BaseController:
 
     def __init__(self):
         self.app_settings = get_settings()
-        self.base_dir = os.path.dirname(os.path.dirname(__file__))
+        self.base_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
         self.files_dir = os.path.join(self.base_dir, "assets/files")
 
         self.database_dir = os.path.join(
@@ -28,3 +28,7 @@ class BaseController:
             os.makedirs(database_path)
 
         return database_path
+
+if __name__ == "__main__":
+    object = BaseController()
+    print(object.base_dir)
