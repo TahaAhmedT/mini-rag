@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware  # Import CORS middleware
 from routes import base, data, nlp
 # from motor.motor_asyncio import AsyncIOMotorClient
 from helpers.config import get_settings
@@ -59,6 +60,25 @@ async def shutdown_spam():
 
 app.on_event("startup")(startup_spam)
 app.on_event("shutdown")(shutdown_spam)
+
+# --- CORS Middleware Configuration ---
+# This allows your frontend (the HTML file) to make requests to this backend server.
+origins = [
+    "http://localhost",
+    "http://localhost:8000",
+    "http://127.0.0.1",
+    "http://127.0.0.1:8000",
+    "null",  # Allow requests from local files (file://)
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods (GET, POST, OPTIONS)
+    allow_headers=["*"],  # Allows all headers
+)
+# -----------------------------------
 
 app.include_router(base.base_router)
 app.include_router(data.data_router)
