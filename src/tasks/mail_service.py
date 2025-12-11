@@ -1,18 +1,18 @@
-from ...celery_app import celery_app
+from celery_app import celery_app
 from helpers.config import get_settings
 from time import sleep
 from datetime import datetime
 import logging
+import asyncio
 
 settings = get_settings()
 
 logger = logging.getLogger('celery.task')
 
-@celery_app.task(bind=True)
-async def send_email_reports(self, mail_wait_seconds: int):
+@celery_app.task(bind=True, name="src.tasks.mail_service.send_email_reports")
+def send_email_reports(self, mail_wait_seconds: int):
 
-    return await _send_email_reports(self, mail_wait_seconds)
-
+    return asyncio.run(_send_email_reports(self, mail_wait_seconds))
 
 async def _send_email_reports(task_instance, mail_wait_seconds: int):
 
@@ -28,7 +28,7 @@ async def _send_email_reports(task_instance, mail_wait_seconds: int):
     # ***** START ***** send reports
     for ix in range(15):
         logger.info(f"Send email to user: {ix}")
-        sleep(mail_wait_seconds)
+        await asyncio.sleep(mail_wait_seconds)
     # ***** END ***** send reports
 
     return {

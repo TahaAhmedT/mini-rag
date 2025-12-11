@@ -51,7 +51,7 @@ celery_app = Celery(
     broker=settings.CELERY_BROKER_URL,
     backend=settings.CELERY_RESULT_BACKEND,
     include=[
-        "src.tasks.mail_service"
+        "src.tasks.file_processing"
     ]
 )
 
@@ -83,7 +83,7 @@ celery_app.conf.update(
     worker_cancel_long_running_tasks_on_connection_loss=True,
 
     task_routes={
-        "src.tasks.mail_service.send_email_reports": {"queue": "mail_server_queue"}
+        "src.tasks.file_processing.process_project_files": {"queue": "file_processing"}
     }
 
 )
