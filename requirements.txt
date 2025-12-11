@@ -17,6 +17,15 @@ alembic==1.17.2
 psycopg2-binary==2.9.11
 pgvector==0.4.1
 nltk==3.9.2
+
+# Monitoring and Health Checks
 prometheus-client==0.23.1
 starlette-exporter==0.23.0
 fastapi-health==0.4.0
+
+# Task Queue and Background Jobs
+celery==5.6.0
+redis==7.1.0
+kombu==5.6.1
+billiard==4.2.4
+vine==5.1.0
